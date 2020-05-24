@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Sutra</title>
+	 
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+<style type="text/css">
+	
+	.form
+{
+    padding:200px;
+  margin: 60px ;
+  border:3px solid gray;
+   border-radius:800px;
+  background-color: #f0f0f0;
+}
+ 
+.btn {
+  border: 2px solid gray;
+  color: white;
+  background-color: #3cb371;
+  padding: 8px 20px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-family: italic;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+.Bdw {
+  border: 2px solid gray;
+  color: white;
+  background-color: #3cb371;
+  padding: 8px 20px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-family: italic;
+  cursor: pointer;
+  text-align: center;
+   margin-top:50px; 
+  
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.bt {
+  border: 2px solid gray;
+  color: white;
+  background-color: blue;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 60px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.text
+{
+ font-size: 17px;
+  font-weight: bold;
+}
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.75) url("https://media.giphy.com/media/3ohzdOrcdpiD26TPt6/giphy.gif") no-repeat center center;
+  z-index: 10000;
+}
+
+</style>
+
+</head>
+
+<body>
+<nav class="navbar  fixed-top navbar-expand-sm navbar-dark bg-primary">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'Frml' %}">Sutra_Kshetra</a>
+    </div>
+     
+     <ul class="nav navbar-nav">
+
+        <li class="nav-item active"><a class="nav-link" href="{% url 'Frml' %}">Home</a></li>
+        <li class="nav-item active"><a class="nav-link" href="{% url 'Frml' %}">About Us</a></li>
+        
+        
+      </ul> 
+     
+  </div>
+</nav>
+<br>
+
+  <div class="form" align="center" >
+
+ <form  method="post" enctype="multipart/form-data" action="{% url 'Frml' %}">
+	
+	 
+<div class="upload-btn-wrapper">
+	{% csrf_token %}
+  
+  <button class="bt">Select a PDF</button>
+  <input type="file" id="df" name="document" accept="application/pdf" required /><br><br><br><br>
+   <button type="submit" id="btn" class="btn" onclick ="spin()">Start</button>
+ 
+ 
+<br>
+ 
+</div>
+     
+      
+ </form>
+  
+   
+{% if data %}
+  <div class="row mt-5 ml-4">
+ <div class="col-3 ">
+  <button id="Bdw" class="Bdw" onclick="location.href='{% url 'dwl' %}'">DownloadFile</button>
+ </div>
+ <div class="col-9 mt-5">
+  <form role="form" method="post" action="Sendmail">
+    {% csrf_token %}
+<input type="hidden" name="_token" value="">
+  <div class="form-row">
+      <div class="col-6 ml-4" > 
+      <input type="email" name="emai" class="form-control" placeholder="Drop Your Email" required>
+      </div>
+      <div class="col-3 ml-1" >
+      <button type="submit" class="btn btn-primary">Send converted file</button>
+      </div> 
+   </div>
+</form>
+</div>
+</div>
+   {%endif%} 
+
+</div>
+
+ <div id="loader"></div>
+ 
+<script src="http://code.jquery.com/jquery.js"></script>
+ 
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+
+ function spin()
+ {
+  if(document.getElementById("df").value != "")
+  
+    document.getElementById("loader").style.display = "block";
+    
+  else
+    alert("Please select file");
+ }
+
+</script>
+
+
+</body>
+
+</html>
+
+
+<!-- <div class="col-8">
+  <form role="form" method="post" action="Sendmail">
+    {% csrf_token %}
+<input type="hidden" name="_token" value="">
+  <div class="form-row">
+    <div class="col-4">
+      <input type="email" name="emai" class="form-control" placeholder="Email" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Mail</button>
+  </div>
+</form>
+</div> -->

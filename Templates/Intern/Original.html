@@ -1,0 +1,372 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sutra</title>
+    <link rel="icon" type="text/png"  href="{% static 'Intern/Icon.png' %}">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ <style type="text/css">
+ 	
+ 	
+.form
+{
+    padding:100px;
+  margin-top: 60px ;
+  margin-left: 160px;
+margin-right: 160px;
+   
+   border-radius:800px;
+  background-color: #666666;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 60px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.75) url("https://media.giphy.com/media/3ohzdOrcdpiD26TPt6/giphy.gif") no-repeat center center;
+  z-index: 10000;
+}
+
+
+ </style>
+
+</head>
+<body>
+<nav class=" navbar navbar-expand-md navbar-dark bg-primary ">
+	
+	<div class="container-fluid">
+	<a class="navbar-brand" href="{% url 'Frml' %}"><img src="{% static 'Intern/final.png' %}"></a>	
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+
+		<ul class="navbar-nav ml-auto">
+		
+		<li class="nav-item active mr-2"><a class="nav-link" href="{% url 'Frml' %}">Home</a></li>
+        <li class="nav-item active mr-2"><a class="nav-link" href="#a">About Us</a></li>
+        <li class="nav-item active mr-2"><a class="nav-link" href="#b">Services</a></li>
+        <li class="nav-item active mr-2"><a class="nav-link" href="#c">Team</a></li>
+        <li class="nav-item active mr-5"><a class="nav-link" href="#d">Connect</a></li>
+		</ul>
+		
+	</div>
+	</div>
+
+</nav>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+<div class="form" align="center" >
+
+ <form  method="post" enctype="multipart/form-data" action="{% url 'Frml' %}">
+	
+	 
+<div class="upload-btn-wrapper">
+	{% csrf_token %}
+  
+  <button  class="btn btn-primary">Select a PDF</button>
+  <input type="file" id="df" name="document" accept="application/pdf" required /><br><br><br><br>
+   <button type="submit"  class="btn btn-primary" onclick ="spin()">Start</button>
+ 
+ 
+<br>
+ 
+</div>
+     
+      
+ </form>
+  
+   
+{% if data %}
+  <div class="row mt-5 ml-4">
+ <div class="col-3 ">
+  <button  class="btn btn-primary" onclick="location.href='{% url 'dwl' %}'">DownloadFile</button>
+ </div>
+ <div class="col-9 ">
+  <form role="form" method="post" action="Sendmail">
+    {% csrf_token %}
+<input type="hidden" name="_token" value="">
+  <div class="form-row">
+      <div class="col-6 ml-4" > 
+      <input type="email" name="emai" class="form-control" placeholder="Drop Your Email" required>
+      </div>
+      <div class="col-3 ml-1" >
+      <button type="submit" class="btn btn-primary">Send converted file</button>
+      </div> 
+   </div>
+</form>
+</div>
+</div>
+   {%endif%} 
+
+</div>
+</div>
+<br><br>
+ <div class="container-fluid">
+  <div class="row jumbotron border border-primary">
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+      <p class="lead">
+        A Krusha_Rth a beautiful website developed for farmers across the world. Easy to access and it is free.
+        Made with love by a farmer for farmers.
+      </p>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+       <a href="#"><button type="button" class="btn btn-outline-secondary btn-lg">Krusha_Rth</button></a>
+    </div>
+  </div>
+  
+ </div>
+ <h1 align="center" id="a"><u>About Us</u></h1>
+<br><br>
+   <div class="container-fluid padding">
+     
+     <div class="row text-center">
+       <div class="col-md-3">
+         <img src="{% static 'Intern/ca.jpg' %}">
+       </div>
+       <div class="col-md-6">
+       <p  class="lead">
+     
+     The Grand Summer Sale ends in 24 hours and so does your chance to grab Internshala online trainings at the lowest ever price of Rs. 999/- (after flat 80% off).
+
+From Data Science to Digital Marketing, Python to Photography, AutoCAD to Android, Ethical Hacking to Creative Writing, and Financial Modeling to French - there is something for everyone. These online certified trainings are 4-6 weeks long, designed for beginners, packed with projects, and comes with a certificate of training from Internshala.
+
+      
+   </p></div>
+   <div class="col-md-3"> <img src="{% static 'Intern/nit.jpg' %}"></div>
+     </div>
+
+   </div>
+
+<br>
+
+<h1 align="center" id="b"><u>Services</u></h1>
+
+<div class="container-fluid padding">
+ <div class="row text-center">
+ <div class=" col-md-6 ">
+<img src="{% static 'Intern/web.jpg' %}">
+<h3>WEB DEVELOPMENT</h3>
+<div class="row text-center">
+<div class=" col-md-3 "></div>
+<div class=" col-md-6 ">
+<p class="lead"> The Grand Summer Sale ends in 24 hours and so does your chance to grab Internshala online trainings at the lowest ever price of Rs. 999/- (after flat 80% off).</p>
+</div>
+<div class=" col-md-3 "></div>
+</div>
+</div>
+<div class=" col-md-6 ">
+<img src="{% static 'Intern/desktop.jpg' %}">
+<h3>Desktop DEVELOPMENT</h3>
+<div class="row text-center">
+<div class=" col-md-3 "></div>
+<div class=" col-md-6 ">
+<p class="lead"> The Grand Summer Sale ends in 24 hours and so does your chance to grab Internshala online trainings at the lowest ever price of Rs. 999/- (after flat 80% off).</p>
+</div>
+<div class=" col-md-3 "></div>
+</div>
+</div>
+ </div>
+</div>
+<div class="container-fluid padding">
+ <div class="row text-center">
+ <div class=" col-md-3 "></div>
+ <div class=" col-md-6 ">
+<img src="{% static 'Intern/android.png' %}">
+<h3>Android DEVELOPMENT</h3>
+<div class="row text-center">
+<div class=" col-md-3 "></div>
+<div class=" col-md-6 ">
+<p class="lead"> The Grand Summer Sale ends in 24 hours and so does your chance to grab Internshala online trainings at the lowest ever price of Rs. 999/- (after flat 80% off).</p>
+</div>
+<div class=" col-md-3 "></div>
+</div>
+</div>
+<div class=" col-md-3 "></div>
+</div>
+</div>
+<br>
+<br>
+<h1 align="center" id="c"><u>Meet The Team</u></h1>
+<br><br>
+
+<div class="container-fluid padding " align="center">
+  <div class="row padding" align="center">
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'Intern/bairagi.jpg' %}" style="width: 80%; height: 300px">
+        <div class="card-body">
+          <h4 class="card-title">Rohit</h4>
+          <p class="card-text">Senior software developer at jpmorgan&chase.with 10 year of experience</p>
+          <a href="#" class="btn btn-outline-secondary">See Profile</a>
+        </div>
+      </div>
+
+    </div>
+<div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'Intern/himanshu.jpg' %}" style="width: 80%; height: 300px">
+        <div class="card-body">
+          <h4 class="card-title">Himanshu</h4>
+          <p class="card-text">Senior software developer at jpmorgan&chase.with 10 year of experience</p>
+          <a href="#" class="btn btn-outline-secondary">See Profile</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'Intern/shubham.jpg' %}" style="width: 80%; height: 300px">
+        <div class="card-body">
+          <h4 class="card-title">Shubham</h4>
+          <p class="card-text">Senior software developer at jpmorgan&chase.with 10 year of experience</p>
+          <a href="#" class="btn btn-outline-secondary">See Profile</a>
+        </div>
+      </div>
+
+    </div>
+     <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'Intern/vishal1.jpg' %}" style="width: 80%; height: 300px">
+        <div class="card-body">
+          <h4 class="card-title">Vishal</h4>
+          <p class="card-text">Senior software developer at jpmorgan&chase.with 10 year of experience</p>
+          <a href="#" class="btn btn-outline-secondary">See Profile</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+</div>
+<br>
+
+<div class="container-fluid padding " align="center">
+  <div class="row padding" align="center">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'Intern/ritu.jpg' %}" style="width: 80%; height: 300px">
+        <div class="card-body">
+          <h4 class="card-title">Ritu</h4>
+          <p class="card-text">Senior software developer at jpmorgan&chase.with 10 year of experience</p>
+          <a href="#" class="btn btn-outline-secondary">See Profile</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top" src="{% static 'Intern/abhishek.jpg' %}" style="width: 80%; height: 300px">
+        <div class="card-body">
+          <h4 class="card-title">Abhishek</h4>
+          <p class="card-text">Senior software developer at jpmorgan&chase.with 10 year of experience</p>
+          <a href="#" class="btn btn-outline-secondary">See Profile</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      </div>
+    </div>
+  </div>
+  <br><br>
+<h1 align="center" id="d"><u>Connect</u></h1>
+<br><br>
+
+<div align="center">
+ 
+ <a href="#"><img class="ml-5" src="{% static 'Intern/f.png' %}" style="width: 3%; height: 3%"></a>
+ <a href="#"><img class="ml-5" src="{% static 'Intern/in.png' %}" style="width: 3%; height: 3%"></a>
+ <a href="#"><img class="ml-5" src="{% static 'Intern/tw.png' %}" style="width: 3%; height: 3%"></a>
+ <a href="#"><img class="ml-5" src="{% static 'Intern/li.png' %}" style="width: 3%; height: 3%"></a>
+ <a href="#"><img class="ml-5" src="{% static 'Intern/y.png' %}" style="width: 3%; height: 3%"></a>
+</div>
+<br>
+<br>
+<footer class="bg bg-dark">
+  <div class="container-fluid padding " >
+  <div class="row text-center" >
+      <div class="col-md-4">
+        
+        <img src="{% static 'Intern/final.png' %}">
+        <hr class="light">
+        <p>9826425629</p>
+        <p>Spawar111997@gmail.com</p>
+        <p>Nit,trichy</p>
+      </div>
+      <div class="col-md-4">
+        
+        <hr class="light">
+        <h5>Our Hours</h5>
+        <hr class="light">
+        <p>Monday: 9am - 5pm</p>
+        <p>Saturday: 10am - 4pm</p>
+        <p>sunday: closed</p>
+      </div>
+<div class="col-md-4">
+        
+        <h5>Service centers</h5>
+        <hr class="light">
+        <p>Ghatabillod,Dhar</p>
+        <p>Nanda Nagar,Indore</p>
+        <p>Shajapur,Shajapur</p>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</footer>
+
+  <div id="loader"></div>
+ 
+<script src="http://code.jquery.com/jquery.js"></script>
+ 
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+
+ function spin()
+ {
+  if(document.getElementById("df").value != "")
+  
+    document.getElementById("loader").style.display = "block";
+    
+  else
+    alert("Please select file");
+ }
+
+</script>
+
+
+</body>
+</html>
